@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "sqlitedb.h"
+
 namespace Ui {
 class Widget;
 }
@@ -15,8 +17,16 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
+	void ConnectDB(const QString &path);
+
+public slots:
+	void OnBtnConnectDBClicked();
+	
+
 private:
     Ui::Widget *ui;
+
+	SqliteDB *m_pDB;
 };
 
 #endif // WIDGET_H

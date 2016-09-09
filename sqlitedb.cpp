@@ -19,8 +19,7 @@ SqliteDB::SqliteDB(QObject *parent)
 {
 	//m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("SQLITECIPHER"));
 	m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
-	m_pQuery = new QSqlQuery;
-	m_pSqliteDB->close();
+	m_pQuery = new QSqlQuery(*m_pSqliteDB);
 }
 
 
@@ -72,6 +71,11 @@ bool SqliteDB::ConnectSqliteDB(const QString &path,  const QString &passward)
 	bool state = false;
 	m_messageList.clear();
 
+	if (m_pSqliteDB->isOpen())
+	{
+		m_pSqliteDB->close();
+	}
+
 
 	if (m_pSqliteDB)
 	{
@@ -92,8 +96,6 @@ bool SqliteDB::ConnectSqliteDB(const QString &path,  const QString &passward)
 			{
 				state = true;
 				m_messageList.push_back(QStringLiteral("连接数据库成功！"));
-
-
 			}
 			else
 			{
@@ -244,7 +246,8 @@ bool SqliteDB::CreateTable(const QString &str)
 	{
 		if (m_pSqliteDB->isOpen())
 		{
-			m_pQuery->prepare(str);
+			//m_pQuery->prepare(str);
+			m_pQuery->prepare("create table student (id int primary key, name varchar(30), age int)");
 
 			if (m_pQuery->exec())
 			{

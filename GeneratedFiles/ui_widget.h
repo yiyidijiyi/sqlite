@@ -190,7 +190,7 @@ public:
         label_2->setText(QApplication::translate("Widget", "\345\257\206\347\240\201\357\274\232", 0));
         lineEdit_passward->setText(QApplication::translate("Widget", "123", 0));
         label_3->setText(QApplication::translate("Widget", "\346\225\260\346\215\256\345\272\223\357\274\232", 0));
-        lineEdit_DBPath->setText(QString());
+        lineEdit_DBPath->setText(QApplication::translate("Widget", "./data/data.db", 0));
         pushButton_selDB->setText(QApplication::translate("Widget", "...", 0));
         pushButton_connectDB->setText(QApplication::translate("Widget", "\350\277\236\346\216\245\346\225\260\346\215\256\345\272\223", 0));
         pushButton_disconnectDB->setText(QApplication::translate("Widget", "\346\226\255\345\274\200\346\225\260\346\215\256\345\272\223", 0));

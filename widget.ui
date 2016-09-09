@@ -129,7 +129,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>./data/data.db</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_selDB">

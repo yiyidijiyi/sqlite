@@ -25,17 +25,19 @@ public:
 	void SetUserNamePassward(const QString &userName, const QString &passward);
 
 	void CreateDB(const QString &path, const QString &name, const QString &passward);
-
+	void CreateAccountTable();
 public slots:
 	void OnBtnConnectDBClicked();
 	void OnBtnDisconnectDBClicked();
 	void OnBtnSelectDBClicked();
 	void OnBtnSetPasswardClicked();
 	void OnBtnCreateDBClicked();
+	void OnBtnCreateAccountClicked();
 private:
     Ui::Widget *ui;
 
 	SqliteDB *m_pDB;
+	QSqlRelationalTableModel *m_pRelationTableModel;
 };
 
 #endif // WIDGET_H

@@ -13,14 +13,17 @@
 *  返回：
 *  功能：
 */
-Widget::Widget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Widget),
-	m_pDB(NULL)
+Widget::Widget(QWidget *parent) 
+	:QWidget(parent)
+    ,ui(new Ui::Widget)
+	,m_pDB(NULL)
+	, m_pRelationTableModel(NULL)
 {
     ui->setupUi(this);
 
 	m_pDB = new SqliteDB();
+
+	m_pRelationTableModel = new QSqlRelationalTableModel(ui->tableView);
 
 	connect(ui->pushButton_clearMessage, &QPushButton::clicked, ui->textEdit_message, &QTextEdit::clear);
 	connect(ui->pushButton_connectDB, &QPushButton::clicked, this, &Widget::OnBtnConnectDBClicked);
@@ -28,6 +31,7 @@ Widget::Widget(QWidget *parent) :
 	connect(ui->pushButton_disconnectDB, &QPushButton::clicked, this, &Widget::OnBtnDisconnectDBClicked);
 	connect(ui->pushButton_setPassward, &QPushButton::clicked, this, &Widget::OnBtnSetPasswardClicked);
 	connect(ui->pushButton_createDB, &QPushButton::clicked, this, &Widget::OnBtnCreateDBClicked);
+	connect(ui->pushButton_createAccount, &QPushButton::clicked, this, &Widget::OnBtnCreateAccountClicked);
 }
 
 
@@ -38,6 +42,11 @@ Widget::Widget(QWidget *parent) :
 */
 Widget::~Widget()
 {
+	if (m_pRelationTableModel)
+	{
+		delete m_pRelationTableModel;
+	}
+
 	if (m_pDB)
 	{
 		delete m_pDB;
@@ -167,6 +176,23 @@ void Widget::CreateDB(const QString &path, const QString &name, const QString &p
 *  返回：
 *  功能：
 */
+void Widget::CreateAccountTable()
+{
+	QString str = "create table Account(id integar primary key autoincrement, name varchar, passward varchar, type integar, \
+				  date timestamp not null defaut(datetime('now'), 'localtime'))";
+	//QString str = "create table student (id int primary key, name varchar(30), age int)";
+
+	m_pDB->CreateTable(str);
+
+	ShowSqliteMessage();
+}
+
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
 void Widget::OnBtnConnectDBClicked()
 {
 	QString path = ui->lineEdit_DBPath->text();
@@ -234,6 +260,16 @@ void Widget::OnBtnCreateDBClicked()
 	CreateDB(path, name, passward);
 }
 
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
+void Widget::OnBtnCreateAccountClicked()
+{
+	CreateAccountTable();
+}
 
 
 

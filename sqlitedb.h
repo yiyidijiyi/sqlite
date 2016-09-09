@@ -27,8 +27,11 @@ public:
 	bool CreateSqliteDB(const QString &path, const QString &passward = QString(""));
 
 	bool SetPassward(const QString &passward);
+	bool CreateTable(const QString &str);
 private:
 	QSqlDatabase *m_pSqliteDB;
+	QSqlQuery		*m_pQuery;
+	
 	QStringList m_messageList;
 };
 

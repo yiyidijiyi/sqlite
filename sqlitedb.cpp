@@ -14,9 +14,13 @@
 SqliteDB::SqliteDB(QObject *parent)
 	: QObject(parent)
 	, m_pSqliteDB(NULL)
+	, m_pQuery(NULL)
 	, m_messageList("")
 {
-	m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("SQLITECIPHER"));
+	//m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("SQLITECIPHER"));
+	m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
+	m_pQuery = new QSqlQuery;
+	m_pSqliteDB->close();
 }
 
 
@@ -27,6 +31,13 @@ SqliteDB::SqliteDB(QObject *parent)
 */
 SqliteDB::~SqliteDB()
 {
+	
+
+	if (m_pQuery)
+	{
+		delete m_pQuery;
+	}
+
 	if (m_pSqliteDB)
 	{
 		if (m_pSqliteDB->isOpen())
@@ -81,6 +92,8 @@ bool SqliteDB::ConnectSqliteDB(const QString &path,  const QString &passward)
 			{
 				state = true;
 				m_messageList.push_back(QStringLiteral("连接数据库成功！"));
+
+
 			}
 			else
 			{
@@ -179,7 +192,6 @@ bool SqliteDB::CreateSqliteDB(const QString &path, const QString &passward)
 }
 
 
-
 /*
 *  参数：passward--密码
 *  返回：
@@ -213,6 +225,48 @@ bool SqliteDB::SetPassward(const QString &passward)
 			m_messageList.push_back(QStringLiteral("数据库密码设置失败！"));
 		}
 	}
+
+	return state;
+}
+
+
+/*
+*  参数：str--创建表的sql语句
+*  返回：
+*  功能：在打开的数据库中创建一个表
+*/
+bool SqliteDB::CreateTable(const QString &str)
+{
+	bool state = false;
+	m_messageList.clear();
+
+	if (m_pSqliteDB)
+	{
+		if (m_pSqliteDB->isOpen())
+		{
+			m_pQuery->prepare(str);
+
+			if (m_pQuery->exec())
+			{
+				state = true;
+				m_messageList.push_back(QStringLiteral("在数据库中建表成功！"));
+			}
+			else
+			{
+				m_messageList.push_back(QStringLiteral("在数据库中建表失败！"));
+				m_messageList.push_back(m_pQuery->lastError().text());
+			}
+		}
+		else
+		{
+			m_messageList.push_back(QStringLiteral("未连接到数据库！"));
+		}
+	}
+	else
+	{
+		m_messageList.push_back(QStringLiteral("sqlite驱动加载错误！"));
+	}
+	
 
 	return state;
 }

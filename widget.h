@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QFileDialog>
 
 #include "sqlitedb.h"
 
@@ -17,11 +18,17 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
+	void ShowSqliteMessage();
 	void ConnectDB(const QString &path);
+	void ConnectDB(const QString &path, const QString &userName, const QString &passward);
+	void DisconnectDB();
+	void SetUserNamePassward(const QString &userName, const QString &passward);
 
 public slots:
 	void OnBtnConnectDBClicked();
-	
+	void OnBtnDisconnectDBClicked();
+	void OnBtnSelectDBClicked();
+	void OnBtnSetPasswardClicked();
 
 private:
     Ui::Widget *ui;

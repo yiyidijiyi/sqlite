@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1366</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QTextEdit" name="textEdit_message">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>620</x>
      <y>10</y>
-     <width>300</width>
+     <width>400</width>
      <height>300</height>
     </rect>
    </property>
@@ -26,7 +26,7 @@
   <widget class="QPushButton" name="pushButton_clearMessage">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>620</x>
      <y>320</y>
      <width>75</width>
      <height>23</height>
@@ -36,18 +36,213 @@
     <string>清空</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_connectDB">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>10</x>
      <y>10</y>
-     <width>75</width>
-     <height>23</height>
+     <width>300</width>
+     <height>140</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="title">
     <string>连接数据库</string>
    </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>54</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>用户名：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_userName">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>75</y>
+      <width>54</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>密码：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_passward">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>75</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>25</y>
+      <width>54</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>数据库：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_DBPath">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>25</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_selDB">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>23</y>
+      <width>40</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_connectDB">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>100</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>连接数据库</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_disconnectDB">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>100</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>断开数据库</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>160</y>
+     <width>300</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>设置数据库密码</string>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>25</y>
+      <width>54</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>用户名：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_setUserName">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>25</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>54</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>密码：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_setPassward">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_setPassward">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>80</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>确定</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

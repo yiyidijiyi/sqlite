@@ -20,9 +20,13 @@ public:
 	SqliteDB(QObject *parent = 0);
 	~SqliteDB();
 
+	QStringList& GetMessage();
+
 	bool ConnectSqliteDB(const QString &path);
 	bool ConnectSqliteDB(const QString &path, const QString &username, const QString &passward);
-	bool DisConnectSqliteDB();
+	bool DisconnectSqliteDB();
+
+	bool SetUserNamePassward(const QString &userName, const QString &passward);
 private:
 	QSqlDatabase *m_pSqliteDB;
 	QStringList m_messageList;

@@ -1,6 +1,6 @@
 /*
-*  创建日期：
-*  最后修改：
+*  创建日期：2016-09-08
+*  最后修改：2016-09-09
 *  作       者：
 *  文件描述：
 */
@@ -22,11 +22,11 @@ public:
 
 	QStringList& GetMessage();
 
-	bool ConnectSqliteDB(const QString &path);
-	bool ConnectSqliteDB(const QString &path, const QString &username, const QString &passward);
+	bool ConnectSqliteDB(const QString &path,  const QString &passward = QString(""));
 	bool DisconnectSqliteDB();
+	bool CreateSqliteDB(const QString &path, const QString &passward = QString(""));
 
-	bool SetUserNamePassward(const QString &userName, const QString &passward);
+	bool SetPassward(const QString &passward);
 private:
 	QSqlDatabase *m_pSqliteDB;
 	QStringList m_messageList;

@@ -27,6 +27,7 @@ Widget::Widget(QWidget *parent) :
 	connect(ui->pushButton_selDB, &QPushButton::clicked, this, &Widget::OnBtnSelectDBClicked);
 	connect(ui->pushButton_disconnectDB, &QPushButton::clicked, this, &Widget::OnBtnDisconnectDBClicked);
 	connect(ui->pushButton_setPassward, &QPushButton::clicked, this, &Widget::OnBtnSetPasswardClicked);
+	connect(ui->pushButton_createDB, &QPushButton::clicked, this, &Widget::OnBtnCreateDBClicked);
 }
 
 
@@ -80,9 +81,9 @@ void Widget::ConnectDB(const QString &path)
 *  返回：
 *  功能：
 */
-void Widget::ConnectDB(const QString &path, const QString &userName, const QString &passward)
+void Widget::ConnectDB(const QString &path, const QString &passward)
 {
-	m_pDB->ConnectSqliteDB(path, userName, passward);
+	m_pDB->ConnectSqliteDB(path, passward);
 	
 	ShowSqliteMessage();
 }
@@ -118,7 +119,7 @@ void Widget::SetUserNamePassward(const QString &userName, const QString &passwar
 	}
 	else
 	{
-		m_pDB->SetUserNamePassward(userName,  passward);
+		m_pDB->SetPassward(passward);
 
 		ShowSqliteMessage();
 	}
@@ -130,22 +131,50 @@ void Widget::SetUserNamePassward(const QString &userName, const QString &passwar
 *  返回：
 *  功能：
 */
+void Widget::CreateDB(const QString &path, const QString &name, const QString &passward)
+{
+	QString pathName;
+
+	if (path.isEmpty())
+	{
+		ui->textEdit_message->append(QStringLiteral("路径为空，采用默认路径 ./data！"));
+		pathName = QString("./data/");
+	}
+	else
+	{
+		int index = path.lastIndexOf(QString("/"));
+		pathName = path.left(index + 2);
+	}
+
+	if (name.isEmpty())
+	{
+		ui->textEdit_message->append(QStringLiteral("数据库名称为空，采用名称data.db！"));
+		pathName += QString("data.db");
+	}
+	else
+	{
+		pathName += name;
+	}
+
+	m_pDB->CreateSqliteDB(pathName, passward);
+
+	ShowSqliteMessage();
+}
+
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
 void Widget::OnBtnConnectDBClicked()
 {
 	QString path = ui->lineEdit_DBPath->text();
-	QString userName = ui->lineEdit_userName->text();
 	QString passward = ui->lineEdit_passward->text();
 
 	if (!path.isEmpty())
 	{
-		if (userName.isEmpty())
-		{
-			ConnectDB(path);
-		}
-		else
-		{
-			ConnectDB(path, userName, passward);
-		}
+		ConnectDB(path,  passward);
 	}
 	else
 	{
@@ -189,6 +218,20 @@ void Widget::OnBtnSetPasswardClicked()
 	QString passward = ui->lineEdit_setPassward->text();
 	
 	SetUserNamePassward(userName, passward);
+}
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
+void Widget::OnBtnCreateDBClicked()
+{
+	QString path = ui->lineEdit_DBPath->text();
+	QString name = ui->lineEdit_DBPath->text();
+	QString passward = ui->lineEdit_passward->text();
+
+	CreateDB(path, name, passward);
 }
 
 

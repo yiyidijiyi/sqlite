@@ -20,16 +20,18 @@ public:
 
 	void ShowSqliteMessage();
 	void ConnectDB(const QString &path);
-	void ConnectDB(const QString &path, const QString &userName, const QString &passward);
+	void ConnectDB(const QString &path, const QString &passward);
 	void DisconnectDB();
 	void SetUserNamePassward(const QString &userName, const QString &passward);
+
+	void CreateDB(const QString &path, const QString &name, const QString &passward);
 
 public slots:
 	void OnBtnConnectDBClicked();
 	void OnBtnDisconnectDBClicked();
 	void OnBtnSelectDBClicked();
 	void OnBtnSetPasswardClicked();
-
+	void OnBtnCreateDBClicked();
 private:
     Ui::Widget *ui;
 

@@ -1,6 +1,6 @@
 /*
-*  创建日期：
-*  最后修改：
+*  创建日期：2016-09-08
+*  最后修改：2016-09-09
 *  作       者：
 *  文件描述：
 */
@@ -52,17 +52,24 @@ QStringList& SqliteDB::GetMessage()
 
 /*
 *  参数：path--数据库路径
+*             passward--密码
 *  返回：链接数据时的状态信息
 *  功能：连接数据库
 */
-bool SqliteDB::ConnectSqliteDB(const QString &path)
+bool SqliteDB::ConnectSqliteDB(const QString &path,  const QString &passward)
 {
 	bool state = false;
 	m_messageList.clear();
 
+
 	if (m_pSqliteDB)
 	{
 		m_pSqliteDB->setDatabaseName(path);
+
+		if (!passward.isEmpty())
+		{
+			m_pSqliteDB->setPassword(passward);
+		}		
 
 		if (m_pSqliteDB->isOpen())
 		{
@@ -78,52 +85,6 @@ bool SqliteDB::ConnectSqliteDB(const QString &path)
 			else
 			{
 				m_pSqliteDB->close();
-				m_messageList.push_back(QStringLiteral("连接数据库失败！"));
-				m_messageList.push_back(m_pSqliteDB->lastError().text());
-			}
-		}
-	}
-	else
-	{
-		m_messageList.push_back(QStringLiteral("初始化QSqlDatabase错误！"));
-	}
-
-	return state;
-}
-
-
-/*
-*  参数：path--数据库路径
-*             username--用户名
-*             passward--密码
-*  返回：链接数据时的状态信息
-*  功能：连接数据库
-*/
-bool SqliteDB::ConnectSqliteDB(const QString &path, const QString &userName, const QString &passward)
-{
-	bool state = false;
-	m_messageList.clear();
-
-
-	if (m_pSqliteDB)
-	{
-		m_pSqliteDB->setDatabaseName(path);
-		m_pSqliteDB->setUserName(userName);
-		m_pSqliteDB->setPassword(passward);
-
-		if (m_pSqliteDB->isOpen())
-		{
-			m_messageList.push_back(QStringLiteral("已连接一个数据库，请断开当前数据库后再连接新的数据库！"));
-		}
-		else
-		{
-			if (m_pSqliteDB->open())
-			{
-				state = true;
-				m_messageList.push_back(QStringLiteral("连接数据库成功！"));
-			}
-			else
-			{
 				m_messageList.push_back(QStringLiteral("连接数据库失败！"));
 				m_messageList.push_back(m_pSqliteDB->lastError().text());
 			}
@@ -172,11 +133,59 @@ bool SqliteDB::DisconnectSqliteDB()
 }
 
 /*
+*  参数：path--数据库路径
+*             passward--密码
+*  返回：0-创建失败，1-创建成功
+*  功能：设置数据库的密码
+*/
+bool SqliteDB::CreateSqliteDB(const QString &path, const QString &passward)
+{
+	bool state = false;
+	m_messageList.clear();
+
+	if (m_pSqliteDB)
+	{
+		if (m_pSqliteDB->isOpen())
+		{
+			m_messageList.push_back(QStringLiteral("请先关闭已连接的数据库！"));
+		}
+		else
+		{
+			m_pSqliteDB->setDatabaseName(path);
+
+			if (!passward.isEmpty())
+			{
+				m_pSqliteDB->setPassword(passward);
+			}
+
+			if (m_pSqliteDB->open())
+			{
+				m_messageList.push_back(QStringLiteral("创建数据库成功！"));
+			}
+			else
+			{
+				m_messageList.push_back(QStringLiteral("创建数据库失败！"));
+			}
+
+			m_pSqliteDB->close();
+		}
+	}
+	else
+	{
+		m_messageList.push_back(QStringLiteral("初始化数据库驱动失败！"));
+	}
+
+	return state;
+}
+
+
+
+/*
 *  参数：passward--密码
 *  返回：
 *  功能：设置数据库的密码
 */
-bool SqliteDB::SetUserNamePassward(const QString &userName, const QString &passward)
+bool SqliteDB::SetPassward(const QString &passward)
 {
 	bool state = false;
 	m_messageList.clear();

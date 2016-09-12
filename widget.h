@@ -27,6 +27,7 @@ public:
 	void CreateDB(const QString &path, const QString &name, const QString &passward);
 	void CreateAccountTable();
 public slots:
+	void OnBtnShowSqlDriverClicked();
 	void OnBtnConnectDBClicked();
 	void OnBtnDisconnectDBClicked();
 	void OnBtnSelectDBClicked();

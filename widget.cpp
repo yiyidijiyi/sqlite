@@ -26,6 +26,7 @@ Widget::Widget(QWidget *parent)
 	m_pRelationTableModel = new QSqlRelationalTableModel(ui->tableView);
 
 	connect(ui->pushButton_clearMessage, &QPushButton::clicked, ui->textEdit_message, &QTextEdit::clear);
+	connect(ui->pushButton_detectDriver, &QPushButton::clicked, this, &Widget::OnBtnShowSqlDriverClicked);
 	connect(ui->pushButton_connectDB, &QPushButton::clicked, this, &Widget::OnBtnConnectDBClicked);
 	connect(ui->pushButton_selDB, &QPushButton::clicked, this, &Widget::OnBtnSelectDBClicked);
 	connect(ui->pushButton_disconnectDB, &QPushButton::clicked, this, &Widget::OnBtnDisconnectDBClicked);
@@ -152,7 +153,7 @@ void Widget::CreateDB(const QString &path, const QString &name, const QString &p
 	else
 	{
 		int index = path.lastIndexOf(QString("/"));
-		pathName = path.left(index + 2);
+		pathName = path.left(index + 1);
 	}
 
 	if (name.isEmpty())
@@ -185,6 +186,22 @@ void Widget::CreateAccountTable()
 	m_pDB->CreateTable(str);
 
 	ShowSqliteMessage();
+}
+
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
+void Widget::OnBtnShowSqlDriverClicked()
+{
+	if (m_pDB)
+	{
+		m_pDB->GetSqlDriver();
+
+		ShowSqliteMessage();
+	}
 }
 
 
@@ -254,7 +271,7 @@ void Widget::OnBtnSetPasswardClicked()
 void Widget::OnBtnCreateDBClicked()
 {
 	QString path = ui->lineEdit_DBPath->text();
-	QString name = ui->lineEdit_DBPath->text();
+	QString name = ui->lineEdit_DBName->text();
 	QString passward = ui->lineEdit_passward->text();
 
 	CreateDB(path, name, passward);

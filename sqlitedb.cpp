@@ -1,6 +1,6 @@
 /*
 *  创建日期：2016-09-08
-*  最后修改：2016-09-09
+*  最后修改：2016-09-11
 *  作       者：
 *  文件描述：
 */
@@ -17,8 +17,8 @@ SqliteDB::SqliteDB(QObject *parent)
 	, m_pQuery(NULL)
 	, m_messageList("")
 {
-	//m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("SQLITECIPHER"));
-	m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
+	m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("SQLITECIPHER"), "myDB");
+	//m_pSqliteDB = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
 	m_pQuery = new QSqlQuery(*m_pSqliteDB);
 }
 
@@ -30,8 +30,6 @@ SqliteDB::SqliteDB(QObject *parent)
 */
 SqliteDB::~SqliteDB()
 {
-	
-
 	if (m_pQuery)
 	{
 		delete m_pQuery;
@@ -57,6 +55,21 @@ SqliteDB::~SqliteDB()
 QStringList& SqliteDB::GetMessage()
 {
 	return m_messageList;
+}
+
+
+/*
+*  参数：
+*  返回：
+*  功能：
+*/
+void SqliteDB::GetSqlDriver()
+{
+	m_messageList.clear();
+
+	m_messageList = QSqlDatabase::drivers();
+
+	m_messageList.push_front(QStringLiteral("可用的Sql驱动有："));
 }
 
 

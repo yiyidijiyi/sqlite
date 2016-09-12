@@ -32,7 +32,7 @@ public:
     QPushButton *pushButton_clearMessage;
     QGroupBox *groupBox;
     QLabel *label;
-    QLineEdit *lineEdit_dbName;
+    QLineEdit *lineEdit_DBName;
     QLabel *label_2;
     QLineEdit *lineEdit_passward;
     QLabel *label_3;
@@ -42,6 +42,7 @@ public:
     QPushButton *pushButton_disconnectDB;
     QPushButton *pushButton_createDB;
     QPushButton *pushButton_createAccount;
+    QPushButton *pushButton_detectDriver;
     QGroupBox *groupBox_2;
     QLabel *label_4;
     QLineEdit *lineEdit_setUserName;
@@ -80,9 +81,9 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(5, 50, 60, 20));
         label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_dbName = new QLineEdit(groupBox);
-        lineEdit_dbName->setObjectName(QStringLiteral("lineEdit_dbName"));
-        lineEdit_dbName->setGeometry(QRect(70, 50, 160, 20));
+        lineEdit_DBName = new QLineEdit(groupBox);
+        lineEdit_DBName->setObjectName(QStringLiteral("lineEdit_DBName"));
+        lineEdit_DBName->setGeometry(QRect(70, 50, 160, 20));
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(10, 75, 54, 20));
@@ -108,10 +109,13 @@ public:
         pushButton_disconnectDB->setGeometry(QRect(100, 100, 80, 24));
         pushButton_createDB = new QPushButton(groupBox);
         pushButton_createDB->setObjectName(QStringLiteral("pushButton_createDB"));
-        pushButton_createDB->setGeometry(QRect(190, 100, 80, 24));
+        pushButton_createDB->setGeometry(QRect(100, 130, 80, 24));
         pushButton_createAccount = new QPushButton(groupBox);
         pushButton_createAccount->setObjectName(QStringLiteral("pushButton_createAccount"));
         pushButton_createAccount->setGeometry(QRect(10, 130, 80, 24));
+        pushButton_detectDriver = new QPushButton(groupBox);
+        pushButton_detectDriver->setObjectName(QStringLiteral("pushButton_detectDriver"));
+        pushButton_detectDriver->setGeometry(QRect(190, 100, 80, 24));
         groupBox_2 = new QGroupBox(Widget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 190, 295, 120));
@@ -196,6 +200,7 @@ public:
         pushButton_disconnectDB->setText(QApplication::translate("Widget", "\346\226\255\345\274\200\346\225\260\346\215\256\345\272\223", 0));
         pushButton_createDB->setText(QApplication::translate("Widget", "\347\224\237\346\210\220\346\225\260\346\215\256\345\272\223", 0));
         pushButton_createAccount->setText(QApplication::translate("Widget", "\347\224\237\346\210\220\350\264\246\346\210\267\350\241\250", 0));
+        pushButton_detectDriver->setText(QApplication::translate("Widget", "\346\243\200\346\265\213\351\251\261\345\212\250", 0));
         groupBox_2->setTitle(QApplication::translate("Widget", "\350\256\276\347\275\256\346\225\260\346\215\256\345\272\223\345\257\206\347\240\201", 0));
         label_4->setText(QApplication::translate("Widget", "\347\224\250\346\210\267\345\220\215\357\274\232", 0));
         label_5->setText(QApplication::translate("Widget", "\345\257\206\347\240\201\357\274\232", 0));
